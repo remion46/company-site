@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>船越政策株式会社</title>
+  <meta name="description" content="真摯に地域と向き合う政治家を、テクノロジーで支援します。動画発信支援・AI検索対策・コンサルティング。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500;600&family=Cormorant+Garant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS Variables
+    ============================================================ */
+    :root {
+      --navy:        #0B1620;
+      --navy-2:      #10202F;
+      --navy-3:      #162840;
+      --ivory:       #F5F0E8;
+      --ivory-2:     #EDE8DF;
+      --ivory-3:     #E4DDD2;
+      --gold:        #B8922A;
+      --gold-light:  #D4AF5C;
+      --gold-pale:   #F2E4B8;
+      --gold-dim:    rgba(184, 146, 42, 0.18);
+      --white:       #FFFFFF;
+      --text-dark:   #1A1710;
+      --text-mid:    #3D3A34;
+      --text-muted:  #7A7568;
+      --max-w:       1080px;
+    }
+
+    /* ============================================================
+       Reset + Base
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Serif JP', 'Times New Roman', Georgia, serif;
+      background: var(--ivory);
+      color: var(--text-dark);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ============================================================
+       Layout Utilities
+    ============================================================ */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 56px;
+    }
+
+    .section-label {
+      display: block;
+      font-family: 'Cormorant Garant', Georgia, serif;
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.55rem, 2.8vw, 2.1rem);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      line-height: 1.5;
+      color: var(--navy);
+    }
+
+    .section-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-top: 22px;
+    }
+
+    /* ============================================================
+       Scroll Reveal
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.72s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.72s cubic-bezier(0.22,1,0.36,1);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+    .d1 { transition-delay: 0.08s; }
+    .d2 { transition-delay: 0.18s; }
+    .d3 { transition-delay: 0.28s; }
+    .d4 { transition-delay: 0.38s; }
+
+    /* ============================================================
+       Navigation
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 22px 56px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.45s ease, padding 0.35s ease;
+    }
+    #nav.solid {
+      background: rgba(11, 22, 32, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 16px 56px;
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+    }
+    .nav-links a {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.68);
+      text-decoration: none;
+      transition: color 0.22s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    @media (max-width: 720px) {
+      #nav { padding: 18px 24px; }
+      #nav.solid { padding: 14px 24px; }
+      .nav-links { display: none; }
+    }
+
+    /* ============================================================
+       Hero
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      background-color: var(--navy);
+      background-image:
+        radial-gradient(circle at 65% 35%, rgba(184,146,42,0.07) 0%, transparent 55%),
+        radial-gradient(circle at 20% 80%, rgba(22,40,64,0.8) 0%, transparent 50%),
+        linear-gradient(rgba(184,146,42,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(184,146,42,0.035) 1px, transparent 1px);
+      background-size: auto, auto, 64px 64px, 64px 64px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Thin gold horizontal line accent */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .hero-inner {
+      padding: 130px 0 100px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 52px;
+    }
+    .hero-eyebrow-line {
+      width: 36px;
+      height: 1px;
+      background: var(--gold);
+    }
+    .hero-eyebrow-text {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+
+    .hero-tagline {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(2rem, 4.2vw, 3.4rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.65;
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
+      max-width: 680px;
+    }
+    .hero-tagline strong {
+      font-weight: 500;
+      color: var(--gold-pale);
+    }
+
+    .hero-sub {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.92rem;
+      font-weight: 200;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em;
+      line-height: 2.1;
+      margin-bottom: 64px;
+      max-width: 460px;
+    }
+
+    .btn-hero {
+      display: inline-block;
+      padding: 15px 48px;
+      border: 1px solid rgba(184,146,42,0.7);
+      color: var(--gold-light);
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-decoration: none;
+      transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.32s cubic-bezier(0.22,1,0.36,1);
+      z-index: -1;
+    }
+    .btn-hero:hover {
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+    .btn-hero:hover::after { transform: scaleX(1); }
+
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0.38;
+    }
+    .hero-scroll span {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+    }
+    .scroll-bar {
+      width: 1px;
+      height: 52px;
+      background: linear-gradient(to bottom, var(--gold-light), transparent);
+      animation: scrollpulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollpulse {
+      0%   { opacity: 0; transform: scaleY(0.3); transform-origin: top; }
+      50%  { opacity: 1; transform: scaleY(1);   transform-origin: top; }
+      100% { opacity: 0; transform: scaleY(1);   transform-origin: bottom; }
+    }
+
+    /* ============================================================
+       Services
+    ============================================================ */
+    #services {
+      background: var(--ivory);
+      padding: 128px 0 120px;
+    }
+
+    .services-header {
+      margin-bottom: 76px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    @media (max-width: 880px) {
+      .services-grid { grid-template-columns: 1fr; gap: 2px; }
+    }
+
+    .service-card {
+      background: var(--white);
+      padding: 48px 40px 52px;
+      border-top: 2px solid var(--gold);
+      position: relative;
+      transition: background 0.25s ease;
+    }
+    .service-card:hover { background: var(--ivory); }
+
+    .service-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 28px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .service-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.0rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--navy);
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    .service-desc {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.84rem;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 2.1;
+    }
+
+    /* ============================================================
+       Founding Story
+    ============================================================ */
+    #story {
+      background: var(--navy-2);
+      background-image: radial-gradient(ellipse at 75% 25%, rgba(184,146,42,0.06) 0%, transparent 60%);
+      padding: 148px 0 140px;
+      position: relative;
+    }
+    #story::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, var(--gold-dim) 40%, var(--gold-dim) 60%, transparent 100%);
+    }
+
+    #story .section-label { color: var(--gold-light); }
+    #story .section-title  { color: rgba(255,255,255,0.9); }
+    #story .section-rule   { background: rgba(184,146,42,0.5); }
+
+    .story-wrap {
+      max-width: 720px;
+    }
+
+    .story-header {
+      margin-bottom: 72px;
+    }
+
+    .story-opening-mark {
+      display: block;
+      font-family: 'Cormorant Garant', serif;
+      font-size: 7rem;
+      font-weight: 300;
+      line-height: 0.6;
+      color: rgba(184,146,42,0.15);
+      margin-bottom: 32px;
+      margin-left: -8px;
+    }
+
+    .story-body {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.93rem;
+      font-weight: 300;
+      line-height: 2.4;
+      color: rgba(255,255,255,0.78);
+      text-align: justify;
+    }
+    .story-body p { margin-bottom: 2.2em; }
+    .story-body p:last-child { margin-bottom: 0; }
+
+    .story-em {
+      color: var(--gold-pale);
+      font-weight: 400;
+    }
+
+    /* ============================================================
+       Profile
+    ============================================================ */
+    #profile {
+      background: var(--ivory-2);
+      padding: 128px 0 120px;
+    }
+
+    .profile-header { margin-bottom: 72px; }
+
+    .profile-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+      .profile-photo-col { display: flex; justify-content: center; }
+    }
+
+    .profile-photo {
+      width: 200px;
+      height: 220px;
+      background: linear-gradient(160deg, var(--navy-3) 0%, var(--navy) 100%);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 4px 4px 24px rgba(11,22,32,0.14);
+    }
+    .profile-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(184,146,42,0.25);
+      border-radius: 2px;
+    }
+    .profile-initials {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      color: rgba(184,146,42,0.35);
+      letter-spacing: 0.08em;
+    }
+
+    .profile-en {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .profile-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      color: var(--navy);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .profile-role {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+    }
+
+    .profile-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .profile-items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.87rem;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+    .profile-items li::before {
+      content: '';
+      display: block;
+      width: 18px;
+      height: 1px;
+      background: var(--gold);
+      margin-top: 11px;
+      flex-shrink: 0;
+    }
+
+    /* ============================================================
+       Note
+    ============================================================ */
+    #note-section {
+      background: var(--navy);
+      padding: 96px 0;
+      position: relative;
+    }
+    #note-section::before, #note-section::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+    #note-section::before { top: 0; }
+    #note-section::after  { bottom: 0; }
+
+    .note-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 64px;
+    }
+
+    @media (max-width: 720px) {
+      .note-row { flex-direction: column; align-items: flex-start; gap: 36px; }
+    }
+
+    .note-text .section-label { color: var(--gold-light); }
+
+    .note-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.2rem, 2.4vw, 1.65rem);
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+
+    .note-desc {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.85rem;
+      font-weight: 200;
+      color: rgba(255,255,255,0.5);
+      line-height: 2;
+    }
+
+    .btn-note {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 44px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background 0.28s ease, color 0.28s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-note::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
+      z-index: -1;
+    }
+    .btn-note:hover { color: var(--navy); }
+    .btn-note:hover::after { transform: scaleX(1); }
+    .note-arrow { font-size: 0.9rem; transition: transform 0.22s; }
+    .btn-note:hover .note-arrow { transform: translateX(5px); }
+
+    /* ============================================================
+       Contact
+    ============================================================ */
+    #contact {
+      background: var(--ivory);
+      padding: 128px 0 120px;
+    }
+
+    .contact-header { margin-bottom: 72px; }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 96px;
+      align-items: start;
+    }
+
+    @media (max-width: 720px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 52px; }
+    }
+
+    .contact-lead {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text-mid);
+      line-height: 2.2;
+    }
+
+    .contact-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .contact-item {
+      padding: 26px 0;
+      border-bottom: 1px solid var(--ivory-3);
+    }
+    .contact-item:first-child { border-top: 1px solid var(--ivory-3); }
+
+    .contact-label {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 0.62rem;
+      font-weight: 400;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 7px;
+    }
+
+    .contact-value {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    .contact-note {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.7rem;
+      font-weight: 200;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       Footer
+    ============================================================ */
+    footer {
+      background: var(--navy);
+      padding: 44px 0;
+      border-top: 1px solid rgba(184,146,42,0.14);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    @media (max-width: 720px) {
+      .footer-inner {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+    }
+
+    .footer-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 0.82rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: rgba(255,255,255,0.72);
+    }
+
+    .footer-copy {
+      font-family: 'Cormorant Garant', serif;
+      font-size: 0.7rem;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.28);
+    }
+
+    /* ============================================================
+       Responsive adjustments
+    ============================================================ */
+    @media (max-width: 720px) {
+      .container { padding: 0 24px; }
+      .hero-inner { padding: 110px 0 80px; }
+      #services    { padding: 88px 0; }
+      #story       { padding: 96px 0; }
+      #profile     { padding: 88px 0; }
+      #note-section { padding: 72px 0; }
+      #contact     { padding: 88px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================
+       Navigation
+  ====================================================== -->
+  <nav id="nav">
+    <a class="nav-logo" href="#hero">船越政策株式会社</a>
+    <ul class="nav-links">
+      <li><a href="#services">事業内容</a></li>
+      <li><a href="#story">創業への想い</a></li>
+      <li><a href="#profile">代表</a></li>
+      <li><a href="#note-section">note</a></li>
+      <li><a href="#contact">お問い合わせ</a></li>
+    </ul>
+  </nav>
+
+  <!-- ======================================================
+       Hero
+  ====================================================== -->
+  <section id="hero">
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="hero-eyebrow reveal">
+          <div class="hero-eyebrow-line"></div>
+          <span class="hero-eyebrow-text">Funakoshi Policy Inc.</span>
+        </div>
+
+        <h1 class="hero-tagline reveal d1">
+          誠実な政治を、<br>
+          <strong>デジタルの力で</strong><br>
+          可視化する。
+        </h1>
+
+        <p class="hero-sub reveal d2">
+          真摯に地域と向き合う政治家を、<br>
+          テクノロジーで支援します。
+        </p>
+
+        <a href="#contact" class="btn-hero reveal d3">お問い合わせ</a>
+
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="scroll-bar"></div>
+      <span>scroll</span>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       Services
+  ====================================================== -->
+  <section id="services">
+    <div class="container">
+
+      <div class="services-header reveal">
+        <span class="section-label">Services</span>
+        <h2 class="section-title">事業内容</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="services-grid">
+
+        <!-- 動画発信支援 -->
+        <div class="service-card reveal d1">
+          <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="1" y="6" width="22" height="24" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M23 13.5L34 7.5v21l-11-6V13.5z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+            <path d="M9 15.5l5 3-5 3v-6z" fill="currentColor" opacity="0.7"/>
+          </svg>
+          <h3 class="service-name">動画発信支援</h3>
+          <p class="service-desc">先生方の活動・政策・人柄を動画に収め、有権者のもとへ届けます。企画から制作・運用まで一貫してサポートします。</p>
+        </div>
+
+        <!-- AI検索対策（GEO） -->
+        <div class="service-card reveal d2">
+          <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="15.5" cy="15.5" r="10" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M22.5 22.5L33 33" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+            <path d="M10.5 15.5h10M15.5 10.5v10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="15.5" cy="15.5" r="4.5" stroke="currentColor" stroke-width="0.7" stroke-dasharray="2.2 2.2"/>
+          </svg>
+          <h3 class="service-name">AI検索対策（GEO）</h3>
+          <p class="service-desc">ChatGPTやGeminiをはじめとしたAI検索で、先生方の政策・活動が正確に評価・表示されるための情報設計を行います。</p>
+        </div>
+
+        <!-- コンサルティング -->
+        <div class="service-card reveal d3">
+          <svg class="service-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="5" y="2" width="22" height="30" rx="2" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M10 11h12M10 17h12M10 23h8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            <circle cx="29" cy="29" r="6" fill="var(--ivory)" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M27.5 29h3M29 27.5v3" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+          </svg>
+          <h3 class="service-name">コンサルティング</h3>
+          <p class="service-desc">情報発信戦略の設計から政策広報の全体設計まで、専門的な観点からご支援します。</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       Founding Story
+  ====================================================== -->
+  <section id="story">
+    <div class="container">
+      <div class="story-wrap">
+
+        <div class="story-header reveal">
+          <span class="section-label">Founding Story</span>
+          <h2 class="section-title">創業への想い</h2>
+          <div class="section-rule"></div>
+        </div>
+
+        <div class="reveal d1">
+          <span class="story-opening-mark" aria-hidden="true">&#8220;</span>
+          <div class="story-body">
+            <p>私たちはいつから、遥か頭上を見上げることをやめ、足元の石を拾って互いに投げ合うようになってしまったのでしょうか。</p>
+
+            <p>かつて、この国が新しい時代をこじ開けようとしていた頃。そこには、他者を論破する狡猾さや、斜に構えた冷笑など入り込む余地はありませんでした。人々を突き動かしていたのは、ただ純粋に国家の行く末を憂う思いであり、上空に浮かぶ一朶の白い雲だけを見つめて坂を登り続ける直向きなまでの実直さと途方もない熱量でした。</p>
+
+            <p>翻って、現代のデジタル空間で繰り広げられる「政治公論」はあまりにも空虚な消費劇です。誰もが下を向き、手のひらの小さな画面の中で言葉尻を捉え、見た目を揶揄し、対立する者の人格までをも否定する。アルゴリズムが優遇する分断と炎上に政治家自身が迎合し、消費されるだけのコンテンツへと成り下がっています。</p>
+
+            <p>私は、この冷笑主義に支配された「亡国のエンターテインメント」を、これ以上座視することはできません。政治を再び、消費劇から、<span class="story-em">真摯な公論の場へと取り戻さなければなりません。</span></p>
+
+            <p>地方政治の現場には、冷笑や批判に晒されながらも、地域のために泥臭くどぶ板を這いずり回る不器用な人々が確実に存在します。私はデジタルの力を使って、彼らの流す汗や内に秘めた覚悟を、一切の脚色なく有権者に届けます。<span class="story-em">テクノロジーは分断を煽る道具ではなく、埋もれた誠実さを可視化するための光であるべきです。</span></p>
+
+            <p>現代の政治空間に、かつての熱と、互いの志を信じ合える誠実さを取り戻す。もう一度、誰もが坂の上の雲を目指せる国にしたい。その大志を胸に、私はこの会社を設立しました。</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       Profile
+  ====================================================== -->
+  <section id="profile">
+    <div class="container">
+
+      <div class="profile-header reveal">
+        <span class="section-label">Representative</span>
+        <h2 class="section-title">代表紹介</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="profile-layout">
+        <div class="profile-photo-col reveal">
+          <div class="profile-photo" role="img" aria-label="船越廉 代表写真">
+            <span class="profile-initials" aria-hidden="true">RF</span>
+          </div>
+        </div>
+
+        <div class="reveal d1">
+          <div class="profile-en">Ren Funakoshi</div>
+          <h3 class="profile-name">船越 廉</h3>
+          <div class="profile-role">代表取締役</div>
+          <!-- 経歴：後日追加 -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======================================================
+       Note
+  ====================================================== -->
+  <section id="note-section">
+    <div class="container">
+      <div class="note-row">
+
+        <div class="note-text reveal">
+          <span class="section-label">Column</span>
+          <h2 class="note-title">note で発信中</h2>
+          <p class="note-desc">
+            地方議員のデジタル発信に役立つ情報を<br>
+            定期的に発信しています。
+          </p>
+        </div>
+
+        <a href="#" class="btn-note reveal d1">
+          記事を読む
+          <span class="note-arrow" aria-hidden="true">&#8594;</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       Contact
+  ====================================================== -->
+  <section id="contact">
+    <div class="container">
+
+      <div class="contact-header reveal">
+        <span class="section-label">Contact</span>
+        <h2 class="section-title">お問い合わせ</h2>
+        <div class="section-rule"></div>
+      </div>
+
+      <div class="contact-layout">
+
+        <div class="contact-lead reveal">
+          お気軽にご連絡ください。<br><br>
+          動画発信・AI検索対策・コンサルティングに関するご相談は、メールまたはお電話にてお受けしております。
+        </div>
+
+        <div class="contact-items reveal d1">
+          <div class="contact-item">
+            <div class="contact-label">Email</div>
+            <div class="contact-value">renfunakoshi1212[at]gmail.com</div>
+            <div class="contact-note">（[at]を @ に変えてご送信ください）</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Mobile</div>
+            <div class="contact-value">080-5881-8699</div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-label">Tel</div>
+            <div class="contact-value">048-853-1035</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       Footer
+  ====================================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span class="footer-logo">船越政策株式会社</span>
+        <span class="footer-copy">&copy; 2025 Funakoshi Policy Inc.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================
+       Scripts
+  ====================================================== -->
+  <script>
+    // Nav: become solid on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('solid', window.scrollY > 48);
+    }, { passive: true });
+
+    // Scroll reveal via IntersectionObserver
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Hero: trigger immediately after load
+    window.addEventListener('load', () => {
+      document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), 150 + i * 100);
+      });
+    });
+  </script>
+
+</body>
+</html>
