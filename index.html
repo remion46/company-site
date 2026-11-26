@@ -183,6 +183,17 @@
     }
 
 
+    /* ---------- News ---------- */
+    #news { padding: var(--sp-8) 0; }
+    .news-list { list-style: none; margin-top: var(--sp-4); }
+    .news-item { display: flex; gap: var(--sp-4); padding: var(--sp-4) 0; border-top: 1px solid var(--line); }
+    .news-item:last-child { border-bottom: 1px solid var(--line); }
+    @media (max-width: 640px) { .news-item { flex-direction: column; gap: var(--sp-1); } }
+    .news-date { flex: none; width: 110px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--ink-50); padding-top: 2px; }
+    .news-title { font-size: 1.05rem; font-weight: 900; margin-bottom: 6px; }
+    .news-body p { font-size: 0.92rem; color: var(--ink-70); line-height: 1.85; }
+    .news-body a { color: var(--signal-deep); font-weight: 700; }
+
     /* ---------- Marquee ---------- */
     .marquee { background: var(--ink); color: var(--paper); overflow: hidden; border-top: 1px solid var(--line-on-ink); border-bottom: 1px solid var(--line-on-ink); padding: var(--sp-2) 0; }
     .marquee-track { display: flex; width: max-content; animation: marquee 26s linear infinite; }
@@ -300,6 +311,7 @@
       <a class="brand" href="#hero"><span class="dot"></span>船越政策株式会社</a>
       <nav aria-label="メインナビゲーション">
         <ul class="nav-links">
+          <li><a href="#news">お知らせ</a></li>
           <li><a href="#services">事業内容</a></li>
           <li><a href="#team">体制</a></li>
           <li><a href="#story">創業の想い</a></li>
@@ -324,6 +336,22 @@
   </section>
 
 
+
+  <!-- News -->
+  <section id="news" aria-labelledby="news-heading">
+    <div class="shell">
+      <span class="eyebrow" id="news-heading">お知らせ</span>
+      <ul class="news-list">
+        <li class="news-item reveal">
+          <span class="news-date">2026.11.11</span>
+          <div class="news-body">
+            <h3 class="news-title">Yo co-creation株式会社との業務提携に関するお知らせ</h3>
+            <p>このたび、船越政策株式会社は<a href="https://www.yoco-creation.com" target="_blank" rel="noopener">Yo co-creation株式会社</a>と業務提携を締結いたしました。今後、両社で連携し、事業展開を進めてまいります。</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
 
   <!-- Services: bento grid -->
   <section id="services" aria-labelledby="services-heading">
